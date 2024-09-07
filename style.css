@@ -1,0 +1,27 @@
+html,
+body {
+  /*cursor: none;*/
+  margin: 0;
+  overflow: hidden;
+}
+
+#custom-cursor {
+  position: absolute;
+  width: 300px; /* Increase the size here */
+  height: 300px;
+  pointer-events: none; /* So it doesn't interfere with clicks */
+  background: url("hammer.svg") no-repeat center;
+  background-size: contain;
+}
+
+div {
+  border: 1px solid black;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+}
+
+img {
+  object-fit: cover;
+  height: 200px;
+}
