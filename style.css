@@ -1,27 +1,102 @@
 html,
 body {
-  /*cursor: none;*/
-  margin: 0;
+  /* cursor: none;*/
+  margin: 20px;
   overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #e2d2c8;
+}
+
+.container {
+  display: inline-grid;
+  justify-items: center;
+  grid-template-columns: auto auto auto auto;
+  margin: 30px;
+  background-color: #fae1f0;
+  width: 70vh;
+  height: 50vh;
+
+  border-radius: 10%;
+}
+
+.container2 {
+  height: 80vh;
+  width: 80vh;
+  background-color: deeppink;
 }
 
 #custom-cursor {
   position: absolute;
   width: 300px; /* Increase the size here */
   height: 300px;
-  pointer-events: none; /* So it doesn't interfere with clicks */
-  background: url("hammer.svg") no-repeat center;
-  background-size: contain;
+  pointer-events: none;
 }
 
-div {
-  border: 1px solid black;
-  height: 200px;
-  width: 200px;
+.moleHole {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  background-color: rgb(0, 0, 0);
   border-radius: 50%;
+  box-shadow: inset 0 15px 10px rgba(109, 105, 105, 0.825);
+  border: 2px solid 0 15px 10px rgba(109, 105, 105, 0.825);
+  margin-top: 50px;
+  overflow: hidden;
 }
 
-img {
-  object-fit: cover;
-  height: 200px;
+.mole {
+  position: absolute;
+  width: 190px;
+  height: 190px;
+  bottom: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: bottom 0.5s ease;
+}
+
+.mole.up {
+  bottom: -80px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 80vh;
+}
+
+.score,
+.time {
+  border: 1px solid black;
+  border-radius: 10%;
+  width: 80px;
+  padding: 5px 10px;
+  text-align: center;
+  font-size: 25px;
+  font-weight: 600;
+}
+
+.winner {
+  background-color: red;
+  width: 20vw;
+  height: 25vh;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.winner button {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.stars {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+.stars img {
+  width: 20%;
+  height: 20%;
 }
