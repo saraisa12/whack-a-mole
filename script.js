@@ -22,7 +22,7 @@ for (let i = 0; i < numberOfMoles; i++) {
 let score = 0
 
 //select all moles
-const moles = document.querySelectorAll("img")
+const moles = document.querySelectorAll(".mole")
 
 //score
 const s = document.querySelector(".score")
@@ -43,8 +43,8 @@ const pickRandomMoles = (num) => {
 }
 
 //selet number of moles to show and show them by adding and removing class
-/*
-setInterval(() => {
+
+let showMoles = setInterval(() => {
   let numMolesToShow = Math.floor((Math.random() * moles.length) / 3) + 1
 
   let selectedMoles = pickRandomMoles(numMolesToShow)
@@ -60,7 +60,7 @@ setInterval(() => {
     }, duration)
   })
 }, 2000)
-*/
+
 //loop through moles and if they have the class up increase score and change image
 moles.forEach((singleMole) => {
   singleMole.addEventListener("click", () => {
@@ -76,23 +76,34 @@ moles.forEach((singleMole) => {
 
       if (score > 10) {
         console.log("winner")
-
-        /*
-        let winner = document.createElement("div")
-
-        winner.classList.add("winner")
-
-        winner.innerHTML = `
-       
-       <h1>winner</h1>
-       `
-
-        document.body.appendChild(winner)*/
       }
       console.log(score)
     }
   })
 })
+
+//timer and losing winning method
+let timeRemaining = 30
+let timer = document.querySelector(".time")
+let winner = document.querySelector(".winner")
+
+timer.innerHTML = timeRemaining
+
+let intervalId = setInterval(() => {
+  if (timeRemaining > 0 && score >= 60) {
+    console.log("winner")
+    clearInterval(intervalId)
+    clearInterval(showMoles)
+    winner.style.display = "block"
+  } else if (timeRemaining === 0 && score < 60) {
+    console.log("loser")
+    clearInterval(intervalId)
+    clearInterval(showMoles)
+  } else {
+    timeRemaining--
+    timer.innerHTML = timeRemaining
+  }
+}, 1000)
 
 /*
 const customCursor = document.getElementById("custom-cursor")
