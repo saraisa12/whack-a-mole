@@ -1,85 +1,123 @@
 console.log("conneted")
-let pickRandomHoles = []
+
+let numberOfMoles = 8
+
+const container = document.querySelector(".container")
 
 //create many moles holes dynamically
-for (let i = 0; i < 3; i++) {
+for (let i = 0; i < numberOfMoles; i++) {
   let hole = document.createElement("div")
 
+  hole.classList.add("moleHole")
   hole.innerHTML = `
   
-  <div class="moleHole">
-      <img src="mole2.png" alt="" />
-    </div>
+  
+      <img class="mole" src="images/mole1.svg" alt="" />
+ 
   `
-  document.body.appendChild(hole)
-
-  pickRandomHoles.push(Math.floor(Math.random() * 4))
+  container.appendChild(hole)
 }
-
-console.log(pickRandomHoles)
 
 //GLOBAL VARIABLES
-
 let score = 0
-//select all images
-const image = document.querySelectorAll("img")
 
-//choose random number of seconds in how the moles will appear
-const randomTime = () => {
-  const times = [1000, 2000, 3000, 4000, 5000, 6000]
-  let number = Math.floor(Math.random() * times.length)
-  console.log("times " + times[number])
-  return times[number]
-}
+//select all moles
+const moles = document.querySelectorAll("img")
 
-//toggle between appearing and hiding
-const timer = () => {
-  image[0].style.opacity = image[0].style.opacity === "0" ? "1" : "0"
-  let nextTime = randomTime()
-  setTimeout(timer, nextTime)
-  console.log("random time " + nextTime)
-}
+//score
+const s = document.querySelector(".score")
 
-//whenever the image is clicked score is increased
-const increaseScore = () => {
-  if (image[0].style.opacity == 1) {
-    score += 5
+//pick random set of moles
+const pickRandomMoles = (num) => {
+  let randomMoles = []
+  let pickedIndices = new Set()
 
-    console.log("Score:", score)
+  while (randomMoles.length < num) {
+    let randomIndex = Math.floor(Math.random() * moles.length)
+    if (!pickedIndices.has(randomIndex)) {
+      pickedIndices.add(randomIndex)
+      randomMoles.push(moles[randomIndex])
+    }
   }
-  return score
+  return randomMoles
 }
 
-image[0].addEventListener("click", increaseScore)
+//selet number of moles to show and show them by adding and removing class
+/*
+setInterval(() => {
+  let numMolesToShow = Math.floor((Math.random() * moles.length) / 3) + 1
 
-//setTimeout(timer, randomTime())
+  let selectedMoles = pickRandomMoles(numMolesToShow)
 
-// Initialize global variables
-// Define variables for score, timer, mole position, mole visibility, game state, etc.
+  selectedMoles.forEach((selectedMole) => {
+    selectedMole.src = "images/mole1.svg"
+    selectedMole.classList.add("up")
 
-// Set up a random mechanism to display the mole
-// Use random method to make the mole appear
+    let duration = Math.floor(Math.random() * 3000) + 1000
 
-// Make the mole go up and down
-// Display the mole for a brief time, then hide it
+    setTimeout(() => {
+      selectedMole.classList.remove("up")
+    }, duration)
+  })
+}, 2000)
+*/
+//loop through moles and if they have the class up increase score and change image
+moles.forEach((singleMole) => {
+  singleMole.addEventListener("click", () => {
+    if (singleMole.classList.contains("up")) {
+      singleMole.src = "images/moleHurt.svg"
 
-// The mole should only be clickable if it is visible
-// Ignore clicks when the mole is not shown
+      setTimeout(() => {
+        singleMole.classList.remove("up")
+      }, 1000)
 
-// The user should be able to start the game
-// Implement a "Start" button to trigger the game
+      score += 5
+      s.innerHTML = score
 
-// A timer should be displayed, and the game should stop when the counter ends
+      if (score > 10) {
+        console.log("winner")
 
-// The mole should be displayed for a few seconds
+        /*
+        let winner = document.createElement("div")
 
-// Score should increase when the mole is clicked
-// Increment the score and update the display whenever the mole is clicked
+        winner.classList.add("winner")
 
-//make the cursor a hammer
+        winner.innerHTML = `
+       
+       <h1>winner</h1>
+       `
+
+        document.body.appendChild(winner)*/
+      }
+      console.log(score)
+    }
+  })
+})
+
+/*
 const customCursor = document.getElementById("custom-cursor")
 
+let index = 0
+
+hammerImages = ["url('hammer.svg')", "url('mole.png')", "url('hammer.svg')"]
+//copied that
 document.addEventListener("mousemove", (e) => {
   customCursor.style.left = e.pageX + "px"
   customCursor.style.top = e.pageY + "px"
 })
+
+document.addEventListener("click", () => {
+  const Interval = setInterval(() => {
+    customCursor.style.background = hammerImages[index]
+    customCursor.style.backgroundPosition = "center"
+    customCursor.style.backgroundRepeat = "no-repeat"
+    customCursor.style.backgroundSize = "contain"
+
+    index++
+
+    if (index >= hammerImages.length) {
+      clearInterval(Interval)
+      index = 0
+    }
+  }, 500)
+})*/
