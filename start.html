@@ -10,7 +10,9 @@
       rel="stylesheet"
     />
 
+    <script defer src="start.js"></script>
     <link rel="stylesheet" href="start.css" />
+
     <title>Document</title>
   </head>
   <body>
@@ -19,7 +21,46 @@
 
       <img class="startImage" src="images/homePageMole.gif" alt="" />
 
+      <button class="instructionsButton">Instructions</button>
+
       <button class="startButton"><a href="index.html">Start</a></button>
     </div>
+
+    <div class="instruction">
+      <button class="close">X</button>
+      <h1 class="title">Game Instructions</h1>
+     
+
+      <div class="rules">
+        <h2 class="Welcome">Welcome to the Whack-a-Mole Game!</h2>
+        <h2 class="intro">there are 4 types of moles</h2>
+        <h2  class="Regular"><strong>Regular Mole:</strong> Worth 5 points. Click to whack it.</h2>
+        <h2 class="strong"><strong>Strong Mole:</strong> Worth 10 points, but requires 3 hits to defeat.</h2>
+        <h2 class="Evil"><strong>Evil Mole:</strong> Decreases your time by 5 seconds if clicked.</h2>
+        <h2 class="Froozen"><strong>Freezing Mole:</strong> Pauses the game for 3 seconds if clicked.</h2>
+        <h2 class="outro">Have Fun !!</h2>
+      </div>
+
+      <div class="moles">
+      <div class="moleHole">
+        <img class="mole evilImage" src="images/moleEvil2.svg" alt="" />
+      </div>
+      
+      <div class="moleHole">
+        <img class="mole regularImage" src="images/mole1.svg" alt="" />
+      </div>
+      
+      <div class="moleHole">
+        <img class="mole strongImage" src="images/moleStrong.svg" alt="" />
+      </div>
+      
+      <div class="moleHole">
+        <img class="mole froozenImage" src="images/moleFrozen.svg" alt="" />
+      </div>
+    </div>
+
+   <button class="next">Continue</button>
+    <div>
+    
   </body>
 </html>
