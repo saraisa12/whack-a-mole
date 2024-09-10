@@ -1,5 +1,5 @@
 console.log("conneted")
-
+//new Audio("background.mp3").play()
 let numberOfMoles = 8
 
 const container = document.querySelector(".container")
@@ -17,16 +17,20 @@ for (let i = 0; i < numberOfMoles; i++) {
   `
   container.appendChild(hole)
 }
-
+///////////////////
 //GLOBAL VARIABLES
+///////////////////
+
 let score = 0
-let timeRemaining = 30
+let timeRemaining = 5
 let intervalId
 let showMoles
 let sounds = ["hitSound.mp3", "hurtSound2.mp3", "hitSound3.mp3"]
 let moleType = [
   "images/moleStrong.svg",
   "images/moleEvil2.svg",
+  "images/mole1.svg",
+  "images/mole1.svg",
   "images/mole1.svg",
   "images/moleFrozen.svg",
 ]
@@ -38,6 +42,19 @@ let winner = document.querySelector(".winner")
 let loser = document.querySelector(".Loser")
 let header = document.querySelector(".header")
 let frozen = document.querySelector(".Frozen")
+let overlay = document.querySelector(".overlay")
+
+///////////////////
+//FUNCTIONS
+///////////////////
+
+//Music
+
+const Music = () => {
+  document.querySelector(".Music").addEventListener("click", () => {
+    new Audio("background.mp3").pause()
+  })
+}
 
 //pick random set of moles
 const pickRandomMoles = (num) => {
@@ -54,9 +71,11 @@ const pickRandomMoles = (num) => {
   return randomMoles
 }
 
+//game logic
 const gameLogic = () => {
+  //pick random moles to show
   showMoles = setInterval(() => {
-    let numMolesToShow = Math.floor((Math.random() * moles.length) / 3) + 1
+    let numMolesToShow = Math.floor((Math.random() * moles.length) / 4) + 1
 
     let selectedMoles = pickRandomMoles(numMolesToShow)
 
@@ -66,54 +85,60 @@ const gameLogic = () => {
       selectedMole.src = moleType[randomMoleType]
       selectedMole.classList.add("up")
 
-      let duration = Math.floor(Math.random() * 3000) + 1000
+      let duration = Math.floor(Math.random() * 6000) + 1000
 
       setTimeout(() => {
         selectedMole.classList.remove("up")
       }, duration)
     })
-  }, 3000)
+  }, 4000)
 
   //timer and losing winning method
-
   intervalId = setInterval(() => {
-    if (timeRemaining > 0 && score >= 60) {
+    if (timeRemaining > 0 && score >= 10) {
       console.log("winner")
       clearInterval(intervalId)
       clearInterval(showMoles)
       winner.style.display = "block"
-    } else if (timeRemaining <= 0 && score < 60) {
+      overlay.style.display = "block"
+    } else if (timeRemaining <= 0 && score < 10) {
       console.log("loser")
       clearInterval(intervalId)
       clearInterval(showMoles)
       loser.style.display = "block"
+      overlay.style.display = "block"
     } else {
       timeRemaining--
       timer.innerHTML = timeRemaining
     }
   }, 2000)
 }
-//selet number of moles to show and show them by adding and removing class
 
+//start game
 const startGame = () => {
-  timeRemaining = 30
+  timeRemaining = 5
   score = 0
   timer.innerHTML = timeRemaining
   s.innerHTML = score
   winner.style.display = "none"
   loser.style.display = "none"
+  overlay.style.display = "none"
 
   gameLogic()
 }
 
+//pause the showing of moles while keeping the timer running
 const freeze = () => {
+  new Audio("Freez.mp3").play()
   frozen.style.display = "block"
+
   clearInterval(showMoles)
 
   setTimeout(() => {
     gameLogic()
+
     frozen.style.display = "none"
-  }, 5000)
+  }, 3000)
 }
 
 //loop through moles and if they have the class up increase score and change image
@@ -159,11 +184,12 @@ moles.forEach((singleMole) => {
       setTimeout(() => {
         singleMole.classList.remove("up")
         singleMole.dataset.clicks = 0
-      }, 1000)
+      }, 2000)
     }
   })
 })
 
+//play again logic
 let playAgain = document.querySelectorAll(".playAgain")
 playAgain.forEach((button) => {
   button.addEventListener("click", () => {
@@ -171,7 +197,7 @@ playAgain.forEach((button) => {
   })
 })
 
-//startGame()
+startGame()
 
 //I COPIED THIS PART
 //change curson to hammer
