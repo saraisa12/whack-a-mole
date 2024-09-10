@@ -16,16 +16,21 @@
 
   <body>
     <div id="custom-cursor"></div>
-    <!--<div class="trapezoid top">
-    <div class="screen">-->
+
+    <img class="sound" src="images/sound.svg" alt="" />
+
     <h1 class="title">Whak-A-Mole</h1>
     <div class="header">
-      <div class="time"></div>
+      <div class="timeDiv">
+        <h2>time</h2>
+        <h2 class="time">00</h2>
+      </div>
 
-      <div class="score">0</div>
+      <div class="scoreDiv">
+        <h2>score</h2>
+        <h2 class="score">0</h2>
+      </div>
     </div>
-    <!-- </div>
-  </div>-->
 
     <div class="container"></div>
 
@@ -33,25 +38,25 @@
 
     <!-- <div class="trapezoid"></div>-->
 
+    <div class="overlay"></div>
+
     <div class="winner">
-      <h1>Winner</h1>
-      <div class="stars">
-        <img src="images/star.png" alt="" />
-        <img src="images/star.png" alt="" />
-        <img src="images/star.png" alt="" />
-      </div>
+      <h1>WINNER!</h1>
 
       <div class="buttons">
-        <button class="playAgain">Play Agaain</button>
-        <button>Next</button>
+        <button class="playAgain">PLAY AGAIN?</button>
+        <button>NEXT</button>
       </div>
     </div>
 
     <div class="Loser">
-      <h1>Loser</h1>
+      <h1>GAME OVER</h1>
+
+      <button class="again">PLAY AGAIN?</button>
 
       <div class="buttons">
-        <button class="playAgain">Retry</button>
+        <button class="playAgain">YES</button>
+        <button>NO</button>
       </div>
     </div>
   </body>
