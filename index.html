@@ -3,20 +3,35 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
     <script defer src="script.js"></script>
     <title>Document</title>
   </head>
 
   <body>
+    <div id="custom-cursor"></div>
+    <!--<div class="trapezoid top">
+    <div class="screen">-->
     <h1 class="title">Whak-A-Mole</h1>
     <div class="header">
       <div class="time"></div>
-      <div><h1>Level 1</h1></div>
+
       <div class="score">0</div>
     </div>
+    <!-- </div>
+  </div>-->
 
     <div class="container"></div>
+
+    <div class="Frozen"></div>
+
+    <!-- <div class="trapezoid"></div>-->
 
     <div class="winner">
       <h1>Winner</h1>
@@ -27,7 +42,7 @@
       </div>
 
       <div class="buttons">
-        <button>Play Agaain</button>
+        <button class="playAgain">Play Agaain</button>
         <button>Next</button>
       </div>
     </div>
@@ -36,7 +51,7 @@
       <h1>Loser</h1>
 
       <div class="buttons">
-        <button>Retry</button>
+        <button class="playAgain">Retry</button>
       </div>
     </div>
   </body>
