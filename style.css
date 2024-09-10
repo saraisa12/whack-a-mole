@@ -7,6 +7,7 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: #332c61;
 }
 
 .container {
@@ -16,9 +17,20 @@ body {
   justify-items: center;
   grid-template-columns: auto auto auto auto;
 
+  margin-top: 70px;
   background-color: #fae1f0;
-  width: 70vh;
-  height: 40vh;
+  width: 80vh;
+  height: 50vh;
+  border-radius: 25px;
+}
+
+.overlay {
+  position: fixed;
+  width: 100vh;
+  height: 100vh;
+  background-color: #332c61;
+  z-index: 5;
+  display: none;
 }
 
 .Frozen {
@@ -27,7 +39,8 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(36, 115, 167, 0.5);
+  background: url("images/6662899.jpg");
+  opacity: 0.3;
   color: white;
   display: flex;
   justify-content: center;
@@ -40,8 +53,8 @@ body {
 #custom-cursor {
   position: absolute;
   pointer-events: none;
-  width: 200px;
-  height: 200px;
+  width: 300px;
+  height: 300px;
   background: url("images/hammer2.svg") no-repeat center center;
   background-size: contain;
   display: none;
@@ -55,8 +68,8 @@ body {
 
 .moleHole {
   position: relative;
-  width: 120px;
-  height: 120px;
+  width: 150px;
+  height: 150px;
   background-color: rgb(0, 0, 0);
   border-radius: 50%;
   background: radial-gradient(circle, black 50%, #000 100%);
@@ -68,16 +81,16 @@ body {
 
 .mole {
   position: absolute;
-  width: 190px;
-  height: 190px;
-  bottom: -200px;
+  width: 230px;
+  height: 230px;
+  bottom: -250px;
   left: 50%;
   transform: translateX(-50%);
   transition: bottom 0.5s ease;
 }
 
 .mole.up {
-  bottom: -80px;
+  bottom: -100px;
 }
 
 .winner {
@@ -88,10 +101,11 @@ body {
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 50px auto;
-  width: 300px;
+  width: 80vh;
+  height: 50vh;
   z-index: 11;
   position: absolute;
-  top: 30%;
+  top: 20%;
 }
 
 .Loser {
@@ -102,116 +116,99 @@ body {
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   margin: 50px auto;
-  width: 300px;
+  width: 80vh;
+  height: 50vh;
   z-index: 11;
   position: absolute;
-  top: 30%;
+  top: 20%;
 }
 
 .winner h1,
 .Loser h1 {
-  font-size: 2.5rem;
-  color: #28a745; /* Green for success */
+  font-size: 100px;
+  color: #ff66cc;
+  font-family: "Press Start 2P", system-ui;
   margin-bottom: 20px;
-}
 
-.winner .stars {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.winner .stars img {
-  width: 50px;
-  height: 50px;
-  margin: 0 10px;
-  transition: transform 0.3s ease; /* Add a hover animation */
-}
-
-.winner .stars img:hover {
-  transform: scale(1.2); /* Stars grow when hovered */
+  text-shadow: 3px 3px 0 #0000ff, 6px 6px 0 #000000;
 }
 
 .winner .buttons {
   display: flex;
   justify-content: center;
-  gap: 20px; /* Space between buttons */
+  gap: 20px;
 }
 
 .winner .buttons button,
 .Loser .buttons button {
   padding: 10px 20px;
-  font-size: 1rem;
+  font-size: 30px;
   border: none;
-  background-color: #007bff; /* Bootstrap blue */
-  color: white;
+  background-color: transparent;
+  color: #db8c31;
+  margin-top: 20px;
+  font-family: "Press Start 2P", system-ui;
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.winner .buttons button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
+.winner .buttons button {
+  margin-top: 100px;
 }
 
-.winner .buttons button:active {
-  transform: scale(0.95); /* Button effect when clicked */
-}
-
-.trapezoid {
-  position: relative;
-  border-top: 250px solid deeppink; /* Trapezoid shape */
-  border-left: 25px solid transparent;
-  border-right: 25px solid transparent;
-  height: 0;
-  width: 65vh;
-  margin: 0 auto;
-}
-
-.top {
-  border-top: 500px solid deeppink;
-  width: 70vh;
-}
-
-.screen {
-  position: absolute;
-  background-color: black;
-  top: -470px; /* Position the screen inside the trapezoid */
-  left: 0;
-  right: 0;
-  color: white; /* Ensure content is visible */
-  padding: 0;
-  text-align: center;
-  /*border-top: 300px solid black; 
-  border-left: 20px solid transparent;
-  border-right: 20px solid transparent;*/
-
-  height: 450px;
-  border-radius: 50px 50px 190px 190px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  vertical-align: top;
+.winner .buttons button:hover,
+.Loser .buttons button:hover {
+  font-size: 31px;
 }
 
 .title {
-  font-size: 40px;
-  /* color: #fff;
+  font-size: 50px;
+  color: #ff66cc;
   font-family: "Press Start 2P", system-ui;
-  text-shadow: 0 0 7px #fff, 0 0 10px #fff, 0 0 21px #fff, 0 0 42px #a0f,
-    0 0 82px #a0f, 0 0 92px #a0f, 0 0 102px #a0f, 0 0 151px #a0f;*/
+  margin-bottom: 20px;
+
+  text-shadow: 3px 3px 0 #0000ff, 6px 6px 0 #000000;
 }
 
 .header {
   display: flex;
   justify-content: space-around;
   width: 90%;
-  margin: 20px auto; /* Center the header content */
+  margin: 20px auto;
 }
 
 .score,
 .time {
-  font-size: 40px;
+  font-size: 35px;
   /*color: #fff;*/
   font-family: "Press Start 2P", system-ui;
+  color: #ff66cc;
+  border: 1px solid black;
+  padding: 20px 40px;
+  background-color: white;
+  border-radius: 25px;
+}
+
+.again {
+  padding: 10px 20px;
+  font-size: 30px;
+  border: none;
+  background-color: transparent;
+  color: #db8c31;
+  font-family: "Press Start 2P", system-ui;
+  border-radius: 10px;
+  margin: 20px;
+}
+
+.scoreDiv,
+.timeDiv {
+  color: #ff66cc;
+  font-family: "Press Start 2P", system-ui;
+  font-size: 15px;
+}
+
+.sound {
+  width: 100px;
+  height: 100px;
 }
