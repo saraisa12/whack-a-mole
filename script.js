@@ -20,12 +20,22 @@ for (let i = 0; i < numberOfMoles; i++) {
 
 //GLOBAL VARIABLES
 let score = 0
+let timeRemaining = 30
+let intervalId
+let showMoles
+let sounds = ["hitSound.mp3", "hurtSound2.mp3", "hitSound3.mp3"]
+let moleType = [
+  "images/moleStrong.svg",
+  "images/moleEvil2.svg",
+  "images/mole1.svg",
+]
 
-//select all moles
-const moles = document.querySelectorAll(".mole")
-
-//score
-const s = document.querySelector(".score")
+let moles = document.querySelectorAll(".mole")
+let s = document.querySelector(".score")
+let timer = document.querySelector(".time")
+let winner = document.querySelector(".winner")
+let loser = document.querySelector(".Loser")
+let header = document.querySelector(".header")
 
 //pick random set of moles
 const pickRandomMoles = (num) => {
@@ -44,91 +54,133 @@ const pickRandomMoles = (num) => {
 
 //selet number of moles to show and show them by adding and removing class
 
-let showMoles = setInterval(() => {
-  let numMolesToShow = Math.floor((Math.random() * moles.length) / 3) + 1
+const startGame = () => {
+  timeRemaining = 30
+  score = 0
+  timer.innerHTML = timeRemaining
+  s.innerHTML = score
+  winner.style.display = "none"
+  loser.style.display = "none"
 
-  let selectedMoles = pickRandomMoles(numMolesToShow)
+  showMoles = setInterval(() => {
+    let numMolesToShow = Math.floor((Math.random() * moles.length) / 3) + 1
 
-  selectedMoles.forEach((selectedMole) => {
-    selectedMole.src = "images/mole1.svg"
-    selectedMole.classList.add("up")
+    let selectedMoles = pickRandomMoles(numMolesToShow)
 
-    let duration = Math.floor(Math.random() * 3000) + 1000
+    let randomMoleType = Math.floor(Math.random() * moleType.length)
 
-    setTimeout(() => {
-      selectedMole.classList.remove("up")
-    }, duration)
-  })
-}, 2000)
+    selectedMoles.forEach((selectedMole) => {
+      selectedMole.src = moleType[randomMoleType]
+      selectedMole.classList.add("up")
 
-//loop through moles and if they have the class up increase score and change image
-moles.forEach((singleMole) => {
-  singleMole.addEventListener("click", () => {
-    if (singleMole.classList.contains("up")) {
-      singleMole.src = "images/moleHurt.svg"
+      let duration = Math.floor(Math.random() * 3000) + 1000
 
       setTimeout(() => {
-        singleMole.classList.remove("up")
-      }, 1000)
+        selectedMole.classList.remove("up")
+      }, duration)
+    })
+  }, 2000)
 
-      score += 5
-      s.innerHTML = score
+  //loop through moles and if they have the class up increase score and change image
+  moles.forEach((singleMole) => {
+    singleMole.addEventListener("click", () => {
+      if (singleMole.classList.contains("up")) {
+        if (singleMole.src.includes("moleEvil2.svg")) {
+          singleMole.src = "images/moleEvil.svg"
+          new Audio("laugh.wav").play()
+          timeRemaining -= 5
+        } else if (singleMole.src.includes("moleStrong.svg")) {
+          if (!singleMole.dataset.clicks) {
+            singleMole.dataset.clicks = 0
+          }
 
-      if (score > 10) {
-        console.log("winner")
+          let clicks = parseInt(singleMole.dataset.clicks)
+
+          clicks++
+
+          singleMole.dataset.clicks = clicks
+
+          new Audio("hit.mp3").play()
+
+          if (clicks >= 3) {
+            singleMole.src = "images/moleHurt.svg"
+            score += 10
+            let randomSound = Math.floor(Math.random() * sounds.length)
+            new Audio(sounds[randomSound]).play()
+            singleMole.dataset.clicks = 0
+          }
+        } else {
+          singleMole.src = "images/moleHurt.svg"
+
+          let randomSound = Math.floor(Math.random() * sounds.length)
+          new Audio(sounds[randomSound]).play()
+
+          score += 5
+          s.innerHTML = score
+        }
+
+        setTimeout(() => {
+          singleMole.classList.remove("up")
+          singleMole.dataset.clicks = 0
+        }, 1000)
       }
-      console.log(score)
+    })
+  })
+
+  //timer and losing winning method
+
+  intervalId = setInterval(() => {
+    if (timeRemaining > 0 && score >= 60) {
+      console.log("winner")
+      clearInterval(intervalId)
+      clearInterval(showMoles)
+      winner.style.display = "block"
+    } else if (timeRemaining <= 0 && score < 60) {
+      console.log("loser")
+      clearInterval(intervalId)
+      clearInterval(showMoles)
+      loser.style.display = "block"
+    } else {
+      timeRemaining--
+      timer.innerHTML = timeRemaining
     }
+  }, 1000)
+}
+
+let playAgain = document.querySelectorAll(".playAgain")
+
+playAgain.forEach((button) => {
+  button.addEventListener("click", () => {
+    startGame()
   })
 })
 
-//timer and losing winning method
-let timeRemaining = 30
-let timer = document.querySelector(".time")
-let winner = document.querySelector(".winner")
+startGame()
 
-timer.innerHTML = timeRemaining
-
-let intervalId = setInterval(() => {
-  if (timeRemaining > 0 && score >= 60) {
-    console.log("winner")
-    clearInterval(intervalId)
-    clearInterval(showMoles)
-    winner.style.display = "block"
-  } else if (timeRemaining === 0 && score < 60) {
-    console.log("loser")
-    clearInterval(intervalId)
-    clearInterval(showMoles)
-  } else {
-    timeRemaining--
-    timer.innerHTML = timeRemaining
-  }
-}, 1000)
-
-/*
+//I COPIED THIS PART
+//change curson to hammer
 const customCursor = document.getElementById("custom-cursor")
 
-let index = 0
-
-hammerImages = ["url('hammer.svg')", "url('mole.png')", "url('hammer.svg')"]
-//copied that
-document.addEventListener("mousemove", (e) => {
-  customCursor.style.left = e.pageX + "px"
-  customCursor.style.top = e.pageY + "px"
+container.addEventListener("mouseenter", () => {
+  customCursor.style.display = "block"
 })
 
-document.addEventListener("click", () => {
-  const Interval = setInterval(() => {
-    customCursor.style.background = hammerImages[index]
-    customCursor.style.backgroundPosition = "center"
-    customCursor.style.backgroundRepeat = "no-repeat"
-    customCursor.style.backgroundSize = "contain"
+container.addEventListener("mouseleave", () => {
+  customCursor.style.display = "none"
+})
 
-    index++
+container.addEventListener("mousemove", (e) => {
+  const cursorWidth = customCursor.offsetWidth
+  const cursorHeight = customCursor.offsetHeight
 
-    if (index >= hammerImages.length) {
-      clearInterval(Interval)
-      index = 0
-    }
-  }, 500)
-})*/
+  customCursor.style.left = e.pageX - cursorWidth / 2 + "px"
+  customCursor.style.top = e.pageY - cursorHeight / 2 + "px"
+})
+
+container.addEventListener("click", () => {
+  customCursor.classList.add("click-effect")
+
+  setTimeout(() => {
+    customCursor.classList.remove("click-effect") //
+  }, 150)
+})
