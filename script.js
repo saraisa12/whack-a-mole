@@ -28,6 +28,7 @@ let moleType = [
   "images/moleStrong.svg",
   "images/moleEvil2.svg",
   "images/mole1.svg",
+  "images/moleFrozen.svg",
 ]
 
 let moles = document.querySelectorAll(".mole")
@@ -36,6 +37,7 @@ let timer = document.querySelector(".time")
 let winner = document.querySelector(".winner")
 let loser = document.querySelector(".Loser")
 let header = document.querySelector(".header")
+let frozen = document.querySelector(".Frozen")
 
 //pick random set of moles
 const pickRandomMoles = (num) => {
@@ -52,16 +54,7 @@ const pickRandomMoles = (num) => {
   return randomMoles
 }
 
-//selet number of moles to show and show them by adding and removing class
-
-const startGame = () => {
-  timeRemaining = 30
-  score = 0
-  timer.innerHTML = timeRemaining
-  s.innerHTML = score
-  winner.style.display = "none"
-  loser.style.display = "none"
-
+const gameLogic = () => {
   showMoles = setInterval(() => {
     let numMolesToShow = Math.floor((Math.random() * moles.length) / 3) + 1
 
@@ -79,53 +72,7 @@ const startGame = () => {
         selectedMole.classList.remove("up")
       }, duration)
     })
-  }, 2000)
-
-  //loop through moles and if they have the class up increase score and change image
-  moles.forEach((singleMole) => {
-    singleMole.addEventListener("click", () => {
-      if (singleMole.classList.contains("up")) {
-        if (singleMole.src.includes("moleEvil2.svg")) {
-          singleMole.src = "images/moleEvil.svg"
-          new Audio("laugh.wav").play()
-          timeRemaining -= 5
-        } else if (singleMole.src.includes("moleStrong.svg")) {
-          if (!singleMole.dataset.clicks) {
-            singleMole.dataset.clicks = 0
-          }
-
-          let clicks = parseInt(singleMole.dataset.clicks)
-
-          clicks++
-
-          singleMole.dataset.clicks = clicks
-
-          new Audio("hit.mp3").play()
-
-          if (clicks >= 3) {
-            singleMole.src = "images/moleHurt.svg"
-            score += 10
-            let randomSound = Math.floor(Math.random() * sounds.length)
-            new Audio(sounds[randomSound]).play()
-            singleMole.dataset.clicks = 0
-          }
-        } else {
-          singleMole.src = "images/moleHurt.svg"
-
-          let randomSound = Math.floor(Math.random() * sounds.length)
-          new Audio(sounds[randomSound]).play()
-
-          score += 5
-          s.innerHTML = score
-        }
-
-        setTimeout(() => {
-          singleMole.classList.remove("up")
-          singleMole.dataset.clicks = 0
-        }, 1000)
-      }
-    })
-  })
+  }, 3000)
 
   //timer and losing winning method
 
@@ -144,18 +91,87 @@ const startGame = () => {
       timeRemaining--
       timer.innerHTML = timeRemaining
     }
-  }, 1000)
+  }, 2000)
+}
+//selet number of moles to show and show them by adding and removing class
+
+const startGame = () => {
+  timeRemaining = 30
+  score = 0
+  timer.innerHTML = timeRemaining
+  s.innerHTML = score
+  winner.style.display = "none"
+  loser.style.display = "none"
+
+  gameLogic()
 }
 
-let playAgain = document.querySelectorAll(".playAgain")
+const freeze = () => {
+  frozen.style.display = "block"
+  clearInterval(showMoles)
 
+  setTimeout(() => {
+    gameLogic()
+    frozen.style.display = "none"
+  }, 5000)
+}
+
+//loop through moles and if they have the class up increase score and change image
+moles.forEach((singleMole) => {
+  singleMole.addEventListener("click", () => {
+    if (singleMole.classList.contains("up")) {
+      if (singleMole.src.includes("moleEvil2.svg")) {
+        singleMole.src = "images/moleEvil.svg"
+        new Audio("laugh.wav").play()
+        timeRemaining -= 5
+      } else if (singleMole.src.includes("moleStrong.svg")) {
+        if (!singleMole.dataset.clicks) {
+          singleMole.dataset.clicks = 0
+        }
+
+        let clicks = parseInt(singleMole.dataset.clicks)
+
+        clicks++
+
+        singleMole.dataset.clicks = clicks
+
+        new Audio("hit.mp3").play()
+
+        if (clicks >= 3) {
+          singleMole.src = "images/moleHurt.svg"
+          score += 10
+          let randomSound = Math.floor(Math.random() * sounds.length)
+          new Audio(sounds[randomSound]).play()
+          singleMole.dataset.clicks = 0
+        }
+      } else if (singleMole.src.includes("moleFrozen.svg")) {
+        freeze()
+      } else {
+        singleMole.src = "images/moleHurt.svg"
+
+        let randomSound = Math.floor(Math.random() * sounds.length)
+        new Audio(sounds[randomSound]).play()
+
+        score += 5
+        s.innerHTML = score
+      }
+
+      setTimeout(() => {
+        singleMole.classList.remove("up")
+        singleMole.dataset.clicks = 0
+      }, 1000)
+    }
+  })
+})
+
+let playAgain = document.querySelectorAll(".playAgain")
 playAgain.forEach((button) => {
   button.addEventListener("click", () => {
     startGame()
   })
 })
 
-startGame()
+//startGame()
 
 //I COPIED THIS PART
 //change curson to hammer
