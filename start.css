@@ -50,6 +50,7 @@ a {
   font-family: "Press Start 2P", system-ui;
   margin-bottom: 20px;
 
+  margin-top: 50px;
   text-shadow: 3px 3px 0 #0000ff, 6px 6px 0 #000000;
 }
 
@@ -134,9 +135,13 @@ a {
   outline: none;
   transition: color 0.3s ease;
   align-items: start;
+  position: absolute;
+  margin-left: 50px;
+
+  display: flex;
+  justify-content: flex-start;
 }
 
-/* Optional hover effect */
 .close:hover {
   color: #ff6f61;
 }

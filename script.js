@@ -1,5 +1,5 @@
 console.log("conneted")
-//new Audio("background.mp3").play()
+
 let numberOfMoles = 8
 
 const container = document.querySelector(".container")
@@ -22,18 +22,16 @@ for (let i = 0; i < numberOfMoles; i++) {
 ///////////////////
 
 let score = 0
-let timeRemaining = 5
+let timeRemaining = 60
 let intervalId
 let showMoles
-let sounds = ["hitSound.mp3", "hurtSound2.mp3", "hitSound3.mp3"]
-let moleType = [
-  "images/moleStrong.svg",
-  "images/moleEvil2.svg",
-  "images/mole1.svg",
-  "images/mole1.svg",
-  "images/mole1.svg",
-  "images/moleFrozen.svg",
+
+let sounds = [
+  "Audios/hitSound.mp3",
+  "Audios/hurtSound2.mp3",
+  "Audios/hitSound3.mp3",
 ]
+let moleType = ["images/moleEvil2.svg", "images/mole1.svg", "images/mole1.svg"]
 
 let moles = document.querySelectorAll(".mole")
 let s = document.querySelector(".score")
@@ -47,14 +45,6 @@ let overlay = document.querySelector(".overlay")
 ///////////////////
 //FUNCTIONS
 ///////////////////
-
-//Music
-
-const Music = () => {
-  document.querySelector(".Music").addEventListener("click", () => {
-    new Audio("background.mp3").pause()
-  })
-}
 
 //pick random set of moles
 const pickRandomMoles = (num) => {
@@ -79,29 +69,32 @@ const gameLogic = () => {
 
     let selectedMoles = pickRandomMoles(numMolesToShow)
 
-    let randomMoleType = Math.floor(Math.random() * moleType.length)
-
     selectedMoles.forEach((selectedMole) => {
-      selectedMole.src = moleType[randomMoleType]
-      selectedMole.classList.add("up")
+      if (!selectedMole.classList.contains("up")) {
+        let randomMoleType = Math.floor(Math.random() * moleType.length)
 
-      let duration = Math.floor(Math.random() * 6000) + 1000
+        selectedMole.src = moleType[randomMoleType]
+        selectedMole.classList.add("up")
 
-      setTimeout(() => {
-        selectedMole.classList.remove("up")
-      }, duration)
+        let duration = Math.floor(Math.random() * 6000) + 1000
+
+        setTimeout(() => {
+          selectedMole.classList.remove("up")
+        }, duration)
+      }
     })
-  }, 4000)
+  }, 3000)
 
   //timer and losing winning method
   intervalId = setInterval(() => {
-    if (timeRemaining > 0 && score >= 10) {
+    console.log("Current timeRemaining:", timeRemaining)
+    if (timeRemaining > 0 && score >= 60) {
       console.log("winner")
       clearInterval(intervalId)
       clearInterval(showMoles)
       winner.style.display = "block"
       overlay.style.display = "block"
-    } else if (timeRemaining <= 0 && score < 10) {
+    } else if (timeRemaining <= 0 && score < 60) {
       console.log("loser")
       clearInterval(intervalId)
       clearInterval(showMoles)
@@ -111,15 +104,16 @@ const gameLogic = () => {
       timeRemaining--
       timer.innerHTML = timeRemaining
     }
-  }, 2000)
+  }, 1000)
 }
 
 //start game
 const startGame = () => {
-  timeRemaining = 5
+  timeRemaining = 60
   score = 0
-  timer.innerHTML = timeRemaining
-  s.innerHTML = score
+  s.innerHTML = 0
+  clearInterval(showMoles)
+  clearInterval(intervalId)
   winner.style.display = "none"
   loser.style.display = "none"
   overlay.style.display = "none"
@@ -129,16 +123,23 @@ const startGame = () => {
 
 //pause the showing of moles while keeping the timer running
 const freeze = () => {
-  new Audio("Freez.mp3").play()
+  new Audio("Audios/Freez.mp3").play()
   frozen.style.display = "block"
 
   clearInterval(showMoles)
+  clearInterval(intervalId)
+
+  let frozenTimer = setInterval(() => {
+    timeRemaining--
+    timer.innerHTML = timeRemaining
+  }, 1000)
 
   setTimeout(() => {
     gameLogic()
+    clearInterval(frozenTimer)
 
     frozen.style.display = "none"
-  }, 3000)
+  }, 5000)
 }
 
 //loop through moles and if they have the class up increase score and change image
@@ -147,7 +148,8 @@ moles.forEach((singleMole) => {
     if (singleMole.classList.contains("up")) {
       if (singleMole.src.includes("moleEvil2.svg")) {
         singleMole.src = "images/moleEvil.svg"
-        new Audio("laugh.wav").play()
+        new Audio("Audios/laugh.wav").play()
+
         timeRemaining -= 5
       } else if (singleMole.src.includes("moleStrong.svg")) {
         if (!singleMole.dataset.clicks) {
@@ -160,11 +162,12 @@ moles.forEach((singleMole) => {
 
         singleMole.dataset.clicks = clicks
 
-        new Audio("hit.mp3").play()
+        new Audio("Audios/hit.mp3").play()
 
         if (clicks >= 3) {
           singleMole.src = "images/moleHurt.svg"
           score += 10
+          s.innerHTML = score
           let randomSound = Math.floor(Math.random() * sounds.length)
           new Audio(sounds[randomSound]).play()
           singleMole.dataset.clicks = 0
@@ -195,6 +198,23 @@ playAgain.forEach((button) => {
   button.addEventListener("click", () => {
     startGame()
   })
+})
+
+//new Audio("background.mp3").play()
+let audio = document.querySelector("#backgroundAudio")
+let play = document.querySelector(".sound")
+let pause = document.querySelector(".noSound")
+
+play.addEventListener("click", () => {
+  audio.pause()
+  play.style.display = "none"
+  pause.style.display = "block"
+})
+
+pause.addEventListener("click", () => {
+  audio.play()
+  play.style.display = "block"
+  pause.style.display = "none"
 })
 
 startGame()

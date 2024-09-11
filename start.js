@@ -70,7 +70,7 @@ button.addEventListener("click", () => {
 
     if (button.innerHTML === "Play") {
       button.addEventListener("click", function () {
-        window.location.href = "index.html"
+        window.location.href = "start.html"
       })
     }
   }

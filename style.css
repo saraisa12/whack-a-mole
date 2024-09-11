@@ -10,6 +10,19 @@ body {
   background-color: #332c61;
 }
 
+.iconsContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: flex-start; /* Aligns items to the left */
+  flex-direction: column;
+  align-items: center;
+  gap: 10px; /* Space between icons */
+  padding: 10px; /* Adds some padding from the edge */
+  z-index: 10; /* Ensures it's on top of other elements */
+}
+
 .container {
   position: relative;
   cursor: none;
@@ -19,8 +32,8 @@ body {
 
   margin-top: 70px;
   background-color: #fae1f0;
-  width: 80vh;
-  height: 50vh;
+  width: 90vh;
+  height: 60vh;
   border-radius: 25px;
 }
 
@@ -208,7 +221,12 @@ body {
   font-size: 15px;
 }
 
-.sound {
+.icons {
   width: 100px;
   height: 100px;
+  cursor: pointer;
+}
+
+.noSound {
+  display: none;
 }
