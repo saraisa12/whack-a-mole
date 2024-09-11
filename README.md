@@ -12,7 +12,7 @@
 
 ### **_Description_**
 
-##### whak a mole is a web based game where players try to whack moles appearing randomly, the gboal is to hit as many as possible within the time frame.
+##### whak a mole is a web based game where players try to whack moles appearing randomly, the goal is to hit as many as possible within the time frame.
 
 ---
 
@@ -36,9 +36,21 @@
 
 #### **_Screenshots_**
 
-### chilling
+### start page
 
-- will be posted later
+![Image](screenshots/start.png)
+
+### instructions
+
+![Image](screenshots/instructions.png)
+
+### level 1
+
+![Image](screenshots/level1.png)
+
+### level 2
+
+![Image](screenshots/level2.png)
 
 ---
 
@@ -50,4 +62,6 @@
 
 #### **_Credits_**
 
-- will be posted later
+- gifs: https://dribbble.com/shots/10855606-Whacked
+- music: https://youtu.be/HVFYmeL9yw8?si=RfEWvF7nRljgAWhX
+- W3 schools
