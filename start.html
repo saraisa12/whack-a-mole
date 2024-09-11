@@ -9,58 +9,65 @@
       href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
       rel="stylesheet"
     />
-
-    <script defer src="start.js"></script>
-    <link rel="stylesheet" href="start.css" />
-
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="script.js"></script>
     <title>Document</title>
   </head>
+
   <body>
-    <div class="container">
-      <h1 class="title">Whak-A-Mole</h1>
+    <audio
+      id="backgroundAudio"
+      src="Audios/background.mp3"
+      autoplay="auto"
+      loop
+    ></audio>
 
-      <img class="startImage" src="images/homePageMole.gif" alt="" />
+    <div id="custom-cursor"></div>
 
-      <button class="instructionsButton">Instructions</button>
-
-      <button class="startButton"><a href="index.html">Start</a></button>
+    <div class="iconsContainer">
+      <img class="icons sound" src="images/sound.svg" alt="" />
+      <img class="icons noSound" src="images/noSound.svg" alt="" />
+      <img class="icons playAgain" src="images/replyIcon.svg" alt="" />
     </div>
 
-    <div class="instruction">
-      <button class="close">X</button>
-      <h1 class="title">Game Instructions</h1>
-     
-
-      <div class="rules">
-        <h2 class="Welcome">Welcome to the Whack-a-Mole Game!</h2>
-        <h2 class="intro">there are 4 types of moles</h2>
-        <h2  class="Regular"><strong>Regular Mole:</strong> Worth 5 points. Click to whack it.</h2>
-        <h2 class="strong"><strong>Strong Mole:</strong> Worth 10 points, but requires 3 hits to defeat.</h2>
-        <h2 class="Evil"><strong>Evil Mole:</strong> Decreases your time by 5 seconds if clicked.</h2>
-        <h2 class="Froozen"><strong>Freezing Mole:</strong> Pauses the game for 3 seconds if clicked.</h2>
-        <h2 class="outro">Have Fun !!</h2>
-      </div>
-
-      <div class="moles">
-      <div class="moleHole">
-        <img class="mole evilImage" src="images/moleEvil2.svg" alt="" />
-      </div>
-      
-      <div class="moleHole">
-        <img class="mole regularImage" src="images/mole1.svg" alt="" />
-      </div>
-      
-      <div class="moleHole">
-        <img class="mole strongImage" src="images/moleStrong.svg" alt="" />
-      </div>
-      
-      <div class="moleHole">
-        <img class="mole froozenImage" src="images/moleFrozen.svg" alt="" />
-      </div>
-    </div>
-
-   <button class="next">Continue</button>
     <div>
-    
+      <h1 class="title">Whak-A-Mole</h1>
+      <div class="header">
+        <div class="timeDiv">
+          <h2>time</h2>
+          <h2 class="time">00</h2>
+        </div>
+
+        <div class="scoreDiv">
+          <h2>score</h2>
+          <h2 class="score">0</h2>
+        </div>
+      </div>
+    </div>
+    <div class="container"></div>
+
+    <div class="Frozen"></div>
+
+    <div class="overlay"></div>
+
+    <div class="winner">
+      <h1>WINNER!</h1>
+
+      <div class="buttons">
+        <button class="playAgain">PLAY AGAIN?</button>
+        <a href="Level2.html"><button>NEXT</button> </a>
+      </div>
+    </div>
+
+    <div class="Loser">
+      <h1>GAME OVER</h1>
+
+      <button class="again">PLAY AGAIN?</button>
+
+      <div class="buttons">
+        <button class="playAgain">YES</button>
+        <button>NO</button>
+      </div>
+    </div>
   </body>
 </html>
