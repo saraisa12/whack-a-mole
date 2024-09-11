@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="Level2.js"></script>
+    <title>Document</title>
+  </head>
+
+  <body>
+    <audio
+      id="backgroundAudio"
+      src="Audios/background.mp3"
+      autoplay="auto"
+      loop
+    ></audio>
+
+    <div id="custom-cursor"></div>
+
+    <div class="iconsContainer">
+      <img class="icons sound" src="images/sound.svg" alt="" />
+      <img class="icons noSound" src="images/noSound.svg" alt="" />
+      <img class="icons playAgain" src="images/replyIcon.svg" alt="" />
+    </div>
+
+    <div>
+      <h1 class="title">Whak-A-Mole</h1>
+      <div class="header">
+        <div class="timeDiv">
+          <h2>time</h2>
+          <h2 class="time">00</h2>
+        </div>
+
+        <div class="scoreDiv">
+          <h2>score</h2>
+          <h2 class="score">0</h2>
+        </div>
+      </div>
+    </div>
+    <div class="container"></div>
+
+    <div class="Frozen"></div>
+
+    <div class="overlay"></div>
+
+    <div class="winner">
+      <h1>WINNER!</h1>
+
+      <div class="buttons">
+        <button class="playAgain">PLAY AGAIN?</button>
+      </div>
+    </div>
+
+    <div class="Loser">
+      <h1>GAME OVER</h1>
+
+      <button class="again">PLAY AGAIN?</button>
+
+      <div class="buttons">
+        <button class="playAgain">YES</button>
+        <button>NO</button>
+      </div>
+    </div>
+  </body>
+</html>
