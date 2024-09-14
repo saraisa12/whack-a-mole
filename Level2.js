@@ -1,22 +1,6 @@
 console.log("conneted")
 
-let audio = document.querySelector("#backgroundAudio")
-let play = document.querySelector(".sound")
-let pause = document.querySelector(".noSound")
-
-play.addEventListener("click", () => {
-  audio.pause()
-  play.style.display = "none"
-  pause.style.display = "block"
-})
-
-pause.addEventListener("click", () => {
-  audio.play()
-  play.style.display = "block"
-  pause.style.display = "none"
-})
-
-let numberOfMoles = 12
+let numberOfMoles = 8
 
 const container = document.querySelector(".container")
 
@@ -50,7 +34,6 @@ let moleType = [
   "images/mole1.svg",
   "images/moleFrozen.svg",
 ]
-
 let moles = document.querySelectorAll(".mole")
 let s = document.querySelector(".score")
 let timer = document.querySelector(".time")
@@ -127,7 +110,7 @@ const gameLogic = () => {
 
 //start game
 const startGame = () => {
-  timeRemaining = 40
+  timeRemaining = 60
   score = 0
   s.innerHTML = 0
   clearInterval(showMoles)
@@ -141,7 +124,7 @@ const startGame = () => {
 
 //pause the showing of moles while keeping the timer running
 const freeze = () => {
-  new Audio("Freez.mp3").play()
+  new Audio("Audios/Freez.mp3").play()
   frozen.style.display = "block"
 
   clearInterval(showMoles)
@@ -157,7 +140,7 @@ const freeze = () => {
     clearInterval(frozenTimer)
 
     frozen.style.display = "none"
-  }, 3000)
+  }, 5000)
 }
 
 //loop through moles and if they have the class up increase score and change image
@@ -180,7 +163,7 @@ moles.forEach((singleMole) => {
 
         singleMole.dataset.clicks = clicks
 
-        new Audio("hit.mp3").play()
+        new Audio("Audios/hit.mp3").play()
 
         if (clicks >= 3) {
           singleMole.src = "images/moleHurt.svg"
@@ -216,6 +199,23 @@ playAgain.forEach((button) => {
   button.addEventListener("click", () => {
     startGame()
   })
+})
+
+//new Audio("background.mp3").play()
+let audio = document.querySelector("#backgroundAudio")
+let play = document.querySelector(".sound")
+let pause = document.querySelector(".noSound")
+
+play.addEventListener("click", () => {
+  audio.pause()
+  play.style.display = "none"
+  pause.style.display = "block"
+})
+
+pause.addEventListener("click", () => {
+  audio.play()
+  play.style.display = "block"
+  pause.style.display = "none"
 })
 
 startGame()
